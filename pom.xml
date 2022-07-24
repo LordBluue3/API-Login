@@ -7,6 +7,9 @@
     <groupId>org.example</groupId>
     <artifactId>api-Login</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -50,6 +53,13 @@
             <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-shade-plugin -->
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
     </dependencies>
     <repositories>
         <repository>
@@ -57,6 +67,31 @@
             <url>https://jitpack.io/</url>
         </repository>
     </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Build an executable JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                                <transformers>
+                                    <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        <mainClass>com.mikael.api.Login</mainClass>
+                                    </transformer>
+                                </transformers>
+                            </configuration>
 
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
